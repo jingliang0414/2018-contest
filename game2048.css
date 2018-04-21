@@ -1,0 +1,50 @@
+/* game 2048 css */
+
+.score-container {
+    width: 500px;
+    height: 100px;
+    margin: 0 auto;
+    background: #EAB939;
+    border-radius: 5px;
+    text-align: center;
+    font-family: Arial;
+    font-weight: bold;
+    font-size: 60px;
+    line-height: 100px;
+    color: white;
+}
+
+.container {
+    width: 500px;
+    height: 500px;
+    display: flex;
+    flex-flow: row wrap;
+    margin: 0 auto;
+    background: #B4A498;
+    border-radius: 5px;
+}
+
+.grid-1 {
+    margin-top: 20px;
+}
+
+.row {
+    width: 500px;
+    height: 100px;
+    display: flex;
+    flex-flow: column wrap;
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
+
+.column {
+    width: 100px;
+    height: 100px;
+    background: #C7B9AD;
+    border-radius: 5px;
+    text-align: center;
+    font-family: Arial;
+    font-weight: bold;
+    font-size: 60px;
+    line-height: 100px;
+}
