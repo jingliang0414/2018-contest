@@ -18,10 +18,10 @@ window.onload = function() {
                 if (moveLeft()) {
                     setTimeout(() => {
                         newNumber();
-                    }, 300);
+                    }, 200);
                     setTimeout(() => {
                         gameOver()
-                    }, 500);
+                    }, 300);
                 }
                 break;
             case 39:
@@ -30,10 +30,10 @@ window.onload = function() {
                 if (moveRight()) {
                     setTimeout(() => {
                         newNumber();
-                    }, 300);
+                    }, 200);
                     setTimeout(() => {
                         gameOver()
-                    }, 500);
+                    }, 300);
                 }
                 break;
             case 38:
@@ -42,10 +42,10 @@ window.onload = function() {
                 if (moveUp()) {
                     setTimeout(() => {
                         newNumber();
-                    }, 300);
+                    }, 200);
                     setTimeout(() => {
                         gameOver()
-                    }, 500);
+                    }, 300);
                 }
                 break;
             case 40:
@@ -54,10 +54,10 @@ window.onload = function() {
                 if (moveDown()) {
                     setTimeout(() => {
                         newNumber();
-                    }, 300);
+                    }, 200);
                     setTimeout(() => {
                         gameOver()
-                    }, 500);
+                    }, 300);
                 }
                 break;
             default:
@@ -208,13 +208,13 @@ function canMoveLeft() {
 
 // 向左移动
 function moveLeft() {
-    if (!canMoveLeft) {
+    if (!canMoveLeft()) {
         return false;
     }
     for (let i = 0; i < 4; i++) {
+        // 控制第i行，保证一行中只合并一次
+        let flag = false;
         for (let j = 1; j < 4; j++) {
-            // 控制j所在的for循环，如果两个数字进行合并，则直接break出j所在的循环
-            let flag = false;
             if (grid_number[i][j] != 0) {
                 for (var k = j - 1; k >= 0; k--) {
                     if (grid_number[i][k] == 0) {
@@ -223,7 +223,7 @@ function moveLeft() {
                             break;
                         }
                         continue;
-                    } else if (grid_number[i][k] == grid_number[i][j]) {
+                    } else if (!flag && grid_number[i][k] == grid_number[i][j]) {
                         [grid_number[i][k], grid_number[i][j]] = [grid_number[i][j] * 2, 0];
                         score+=grid_number[i][k];
                         document.getElementById('score').innerHTML = score;
@@ -240,9 +240,6 @@ function moveLeft() {
                             break;
                         }
                     }
-                }
-                if(flag){
-                    break;
                 }
             }
         }
@@ -266,13 +263,13 @@ function canMoveRight() {
 
 // 向右移动
 function moveRight() {
-    if (!canMoveRight) {
+    if (!canMoveRight()) {
         return false;
     }
     for (let i = 3; i >=0; i--) {
+        // 控制第i行，保证一行中只合并一次
+        let flag = false;
         for (let j = 2; j >= 0; j--) {
-            // 控制j所在的for循环，如果两个数字进行合并，则直接break出j所在的循环
-            let flag = false;
             if (grid_number[i][j] != 0) {
                 for (var k = j + 1; k < 4; k++) {
                     if (grid_number[i][k] == 0) {
@@ -281,7 +278,7 @@ function moveRight() {
                             break;
                         }
                         continue;
-                    } else if (grid_number[i][k] == grid_number[i][j]) {
+                    } else if (!flag && grid_number[i][k] == grid_number[i][j]) {
                         [grid_number[i][k], grid_number[i][j]] = [grid_number[i][j] * 2, 0];
                         score+=grid_number[i][k];
                         document.getElementById('score').innerHTML = score;
@@ -298,9 +295,6 @@ function moveRight() {
                             break;
                         }
                     }
-                }
-                if(flag){
-                    break;
                 }
             }
         }
@@ -324,13 +318,14 @@ function canMoveUp() {
 
 // 向上移动
 function moveUp() {
-    if (!canMoveUp) {
+    if (!canMoveUp()) {
         return false;
     }
-    for (let i = 1; i < 4; i++) {
-        for (let j = 0; j < 4; j++) {
-            // 控制j所在的for循环，如果两个数字进行合并，则直接break出j所在的循环
-            let flag = false;
+    for (let j = 0; j < 4; j++) {
+        // 控制第j列，保证一列中只合并一次
+        let flag = false;
+        for (let i = 1; i < 4; i++) {
+            
             if (grid_number[i][j] != 0) {
                 for (var k = i - 1; k >= 0; k--) {
                     if (grid_number[k][j] == 0) {
@@ -339,7 +334,7 @@ function moveUp() {
                             break;
                         }
                         continue;
-                    } else if (grid_number[k][j] == grid_number[i][j]) {
+                    } else if (!flag && grid_number[k][j] == grid_number[i][j]) {
                         [grid_number[k][j], grid_number[i][j]] = [grid_number[i][j] * 2, 0];
                         score+=grid_number[k][j];
                         document.getElementById('score').innerHTML = score;
@@ -356,9 +351,6 @@ function moveUp() {
                             break;
                         }
                     }
-                }
-                if(flag){
-                    break;
                 }
             }
         }
@@ -382,13 +374,13 @@ function canMoveDown() {
 
 // 向下移动
 function moveDown() {
-    if (!canMoveDown) {
+    if (!canMoveDown()) {
         return false;
     }
-    for (let i = 2; i >= 0; i--) {
-        for (let j = 0; j < 4; j++) {
-            // 控制j所在的for循环，如果两个数字进行合并，则直接break出j所在的循环
-            let flag = false;
+    for (let j = 0; j < 4; j++) {
+        // 控制第j列，保证一列中只合并一次
+        let flag = false;
+        for (let i = 2; i >= 0; i--) {
             if (grid_number[i][j] != 0) {
                 for (var k = i + 1; k < 4; k++) {
                     if (grid_number[k][j] == 0) {
@@ -397,7 +389,7 @@ function moveDown() {
                             break;
                         }
                         continue;
-                    } else if (grid_number[k][j] == grid_number[i][j]) {
+                    } else if (!flag && grid_number[k][j] == grid_number[i][j]) {
                         [grid_number[k][j], grid_number[i][j]] = [grid_number[i][j] * 2, 0];
                         score+=grid_number[k][j];
                         document.getElementById('score').innerHTML = score;
@@ -414,9 +406,6 @@ function moveDown() {
                             break;
                         }
                     }
-                }
-                if(flag){
-                    break;
                 }
             }
         }
