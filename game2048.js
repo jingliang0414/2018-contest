@@ -173,7 +173,7 @@ function updateView() {
                 grid.innerHTML = grid_number[i][j];
                 grid.style.backgroundColor = getNumberBackgroundColor(grid_number[i][j]);
                 grid.style.color = getNumberColor(grid_number[i][j]);
-                grid.style.fontSize = grid_number[i][j] >= 128 ? (grid_number[i][j] >= 1024 ? "50px" : "55px") : "60px";
+                grid.style.fontSize = grid_number[i][j] >= 128 ? (grid_number[i][j] >= 1024 ? "40px" : "55px") : "60px";
                 if(grid_number[i][j] == 2048){
                     if(grid.setAttribute){
                         grid.setAttribute("class",grid.getAttribute("class")+" shadow");
